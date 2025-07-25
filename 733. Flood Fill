@@ -1,0 +1,49 @@
+class Solution {
+    public int[][] floodFill(int[][] image, int sr, int sc, int color) {
+        int n = image.length;
+        int m = image[0].length;
+        int [][]visited = new int[n][m];
+
+        for (int i = 0; i<n; i++){
+            for (int j = 0; j<m; j++){
+                visited[i][j] = image[i][j];
+            }
+        }
+        int col = image[sr][sc];
+
+        if (col != color){
+            DFS(visited, sr, sc, color, col);
+        }
+        
+        return visited;
+    }
+    public void DFS(int [][]visited, int sr, int sc, int color, int col){
+        int n = visited.length;
+        int m = visited[0].length;
+
+        if(visited[sr][sc] != col){
+            return;
+        }
+
+        
+        visited[sr][sc] = color;
+        
+
+        if(sc-1 >= 0 && sr<n && sr>=0){
+            DFS(visited, sr, sc - 1, color, col);
+        }
+
+        if(sc + 1 < m && sr<n && sr>=0){
+            DFS(visited, sr, sc + 1, color, col);
+        }
+
+        if(sc>=0 && sc<m  && sr - 1 >= 0){
+            DFS(visited, sr - 1, sc, color, col);
+        }
+
+        if(sc>=0 && sc<m  && sr + 1 < n){
+            DFS(visited, sr + 1, sc, color, col);
+        }
+        
+    }
+}
