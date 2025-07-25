@@ -47,3 +47,37 @@ class Solution {
         
     }
 }
+
+
+                                                    OR
+
+
+
+class Solution {
+    public int[][] floodFill(int[][] image, int sr, int sc, int color) {
+        int inCol = image[sr][sc];
+        int [][] ans = image;
+        int []dRow = {0, -1, 0, +1};
+        int []dCol = {-1, 0, +1, 0};
+        DFS(image, sr, sc, color, inCol, dRow, dCol, ans);
+        return ans;
+    }
+    public void DFS(int[][] image, int sr, int sc, int newColor,int inCol, int []dRow, int []dCol, int [][]ans){
+
+
+        int n = image.length;
+        int m = image[0].length; 
+
+        ans[sr][sc] = newColor;
+
+        for (int i = 0; i<4; i++){
+            int nRow = sr + dRow[i];
+            int nCol = sc + dCol[i];
+            if(nRow >= 0 && nRow<n && nCol >= 0 && nCol<m && image[nRow][nCol] == inCol && ans[nRow][nCol] != newColor){
+                DFS( image, nRow, nCol, newColor, inCol, dRow, dCol, ans);
+            }
+        }
+
+
+    }
+}
