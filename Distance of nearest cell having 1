@@ -1,0 +1,65 @@
+class Pair{
+    int row;
+    int col;
+    int dis;
+    Pair(int row, int col, int dis){
+        this.row = row;
+        this.col = col;
+        this.dis = dis;
+    }
+}
+
+class Solution {
+    // Function to find distance of nearest 1 in the grid for each cell.
+    public int[][] nearest(int[][] grid) {
+        // Code here
+        int n = grid.length;
+        int m = grid[0].length;
+        Queue<Pair> q = new LinkedList<>();
+        
+        int [][]vis = new int[n][m];
+        int [][]dis = new int[n][m];
+        
+        
+        for(int i = 0; i<n; i++){
+            for(int j = 0; j<m; j++){
+                if(grid[i][j] == 1){
+                    q.add(new Pair(i, j, 0));
+                    vis[i][j] = 1;
+                }
+            }
+        }
+        
+        int []drow = {-1, 0, +1, 0};
+        int []dcol = {0, +1, 0, -1};
+        while(!q.isEmpty()){
+            int row = q.peek().row;
+            int col = q.peek().col;
+            int dist = q.peek().dis;
+            q.remove();
+            dis[row][col] = dist;
+            for(int i=0; i<4; i++){
+                int nRow = row + drow[i];
+                int nCol = col + dcol[i];
+                
+                if(nRow >= 0 && nRow<n && nCol>=0 && nCol<m && vis[nRow][nCol] == 0 ){
+                    q.add(new Pair(nRow, nCol, dist+1));
+                    vis[nRow][nCol] = 1;
+                }
+            }
+        }
+        return dis;
+        
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
